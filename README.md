@@ -33,77 +33,44 @@ input
 ```
 
 output
-```json
+```json5
 {
   "updated_range": {
     "oldest": "2020-08-02T16:43:48Z",
-    "latest": "2021-07-11T06:27:47Z"
+    "latest": "2021-07-11T13:01:20Z"
   },
   "language_sizes": [
     {
       "name": "TypeScript",
-      "size": 537091
+      "size": 537091,
+      "percentage": 50.01
     },
     {
       "name": "Vue",
-      "size": 103000
+      "size": 103000,
+      "percentage": 9.59
     },
     {
       "name": "JavaScript",
-      "size": 93888
+      "size": 93888,
+      "percentage": 8.74
     },
     {
       "name": "HCL",
-      "size": 89233
+      "size": 89233,
+      "percentage": 8.31
     },
     {
       "name": "HTML",
-      "size": 80865
+      "size": 80865,
+      "percentage": 7.53
     },
     {
       "name": "Go",
-      "size": 60599
+      "size": 65508,
+      "percentage": 6.1
     },
-    {
-      "name": "Shell",
-      "size": 34538
-    },
-    {
-      "name": "CSS",
-      "size": 25874
-    },
-    {
-      "name": "Dockerfile",
-      "size": 22067
-    },
-    {
-      "name": "Java",
-      "size": 11006
-    },
-    {
-      "name": "Python",
-      "size": 7137
-    },
-    {
-      "name": "C",
-      "size": 1765
-    },
-    {
-      "name": "Ruby",
-      "size": 854
-    },
-    {
-      "name": "Makefile",
-      "size": 679
-    },
-    {
-      "name": "Vim script",
-      "size": 403
-    },
-    {
-      "name": "SCSS",
-      "size": 138
-    }
+    // ...
   ]
 }
 ```
