@@ -7,6 +7,7 @@ import (
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
+	"runtime/debug"
 )
 
 func action(c *cli.Context) error {
@@ -34,9 +35,17 @@ var (
 	version string
 )
 
+func Version() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return "(devel)"
+	}
+	return info.Main.Version
+}
+
 func main() {
 	if version == "" {
-		version = "dev"
+		version = Version()
 	}
 
 	app := &cli.App{
