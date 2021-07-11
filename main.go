@@ -48,6 +48,13 @@ func main() {
 		version = Version()
 	}
 
+	isGlobalRequire := true
+	switch os.Args[1] {
+	case "version":
+	case "help":
+		isGlobalRequire = false
+	}
+
 	app := &cli.App{
 		Name:    "octlango",
 		Usage:   "CLI to get statistics on languages used on GitHub.",
@@ -59,14 +66,14 @@ func main() {
 				Aliases:  []string{"u"},
 				Usage:    "your `GITHUB_USERNAME`",
 				EnvVars:  []string{"OCTLANGO_GH_USERNAME"},
-				Required: true,
+				Required: isGlobalRequire,
 			},
 			&cli.StringFlag{
 				Name:     "token",
 				Aliases:  []string{"t"},
 				Usage:    "your `GITHUB_TOKEN`",
 				EnvVars:  []string{"OCTLANGO_GH_TOKEN", "GITHUB_TOKEN"},
-				Required: true,
+				Required: isGlobalRequire,
 			},
 			&cli.BoolFlag{
 				Name:    "sort-by-size",
@@ -77,8 +84,18 @@ func main() {
 			&cli.BoolFlag{
 				Name:    "reverse-order",
 				Aliases: []string{"r"},
-				Usage:   "If true, reverse the result.",
+				Usage:   "if true, reverse the result.",
 				Value:   false,
+			},
+		},
+		Commands: []*cli.Command{
+			{
+				Name:    "version",
+				Usage:   "Print octlango version",
+				Action: func(c *cli.Context) error {
+					fmt.Printf("octlango version %s\n", version)
+					return nil
+				},
 			},
 		},
 	}

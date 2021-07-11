@@ -11,8 +11,9 @@ type UpdatedRange struct {
 }
 
 type LanguageSize struct {
-	Name string `json:"name"`
-	Size int    `json:"size"`
+	Name       string  `json:"name"`
+	Size       int     `json:"size"`
+	Percentage float64 `json:"percentage"`
 }
 
 type Results struct {

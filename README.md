@@ -1,27 +1,35 @@
 # octlango
 CLI to get statistics on languages used on GitHub.
 
+## Install
+```
+go install github.com/korosuke613/octlango@latest
+```
+
+or from the [Release](https://github.com/korosuke613/octlango/releases/latest).
+
 ## Usage
 
 ```
-❯ ./octlango -h            
+❯ octlango -h            
 NAME:
    octlango - CLI to get statistics on languages used on GitHub.
 
 USAGE:
-   octlango [global options] command [command options] [arguments...]
+   main [global options] command [command options] [arguments...]
 
 VERSION:
-   v0.0.0
+   v0.0.4
 
 COMMANDS:
+   version  Print octlango version
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --username GITHUB_USERNAME, -u GITHUB_USERNAME  your GITHUB_USERNAME [$OCTLANGO_GH_USERNAME]
    --token GITHUB_TOKEN, -t GITHUB_TOKEN           your GITHUB_TOKEN [$OCTLANGO_GH_TOKEN, $GITHUB_TOKEN]
    --sort-by-size, -s                              if true, the order is by size. (default: true)
-   --reverse-order, -r                             If true, reverse the result. (default: false)
+   --reverse-order, -r                             if true, reverse the result. (default: false)
    --help, -h                                      show help (default: false)
    --version, -v                                   print the version (default: false)
 ```
@@ -33,77 +41,44 @@ input
 ```
 
 output
-```json
+```json5
 {
   "updated_range": {
     "oldest": "2020-08-02T16:43:48Z",
-    "latest": "2021-07-11T06:27:47Z"
+    "latest": "2021-07-11T13:01:20Z"
   },
   "language_sizes": [
     {
       "name": "TypeScript",
-      "size": 537091
+      "size": 537091,
+      "percentage": 50.01
     },
     {
       "name": "Vue",
-      "size": 103000
+      "size": 103000,
+      "percentage": 9.59
     },
     {
       "name": "JavaScript",
-      "size": 93888
+      "size": 93888,
+      "percentage": 8.74
     },
     {
       "name": "HCL",
-      "size": 89233
+      "size": 89233,
+      "percentage": 8.31
     },
     {
       "name": "HTML",
-      "size": 80865
+      "size": 80865,
+      "percentage": 7.53
     },
     {
       "name": "Go",
-      "size": 60599
+      "size": 65508,
+      "percentage": 6.1
     },
-    {
-      "name": "Shell",
-      "size": 34538
-    },
-    {
-      "name": "CSS",
-      "size": 25874
-    },
-    {
-      "name": "Dockerfile",
-      "size": 22067
-    },
-    {
-      "name": "Java",
-      "size": 11006
-    },
-    {
-      "name": "Python",
-      "size": 7137
-    },
-    {
-      "name": "C",
-      "size": 1765
-    },
-    {
-      "name": "Ruby",
-      "size": 854
-    },
-    {
-      "name": "Makefile",
-      "size": 679
-    },
-    {
-      "name": "Vim script",
-      "size": 403
-    },
-    {
-      "name": "SCSS",
-      "size": 138
-    }
+    // ...
   ]
 }
 ```

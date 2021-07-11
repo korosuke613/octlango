@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"github.com/shurcooL/githubv4"
+	"math"
 	"sort"
 	"time"
 )
@@ -53,6 +54,7 @@ func (o *Octclient) GetRepositoriesContributedTo(ctx context.Context, isSortBySi
 		return nil, err
 	}
 
+	var allLanguageSize int
 	languageMap := map[string]int{}
 	for _, node := range result.User.RepositoriesContributedTo.Nodes {
 		o.updateUpdatedTime(node.UpdatedAt.Time)
@@ -60,14 +62,16 @@ func (o *Octclient) GetRepositoriesContributedTo(ctx context.Context, isSortBySi
 		edges := node.Languages.Edges
 		for _, language := range edges {
 			languageMap[string(language.Node.Name)] += int(language.Size)
+			allLanguageSize += int(language.Size)
 		}
 	}
 
 	var languages []LanguageSize
 	for k, v := range languageMap {
 		languages = append(languages, LanguageSize{
-			Name: k,
-			Size: v,
+			Name:       k,
+			Size:       v,
+			Percentage: math.Round(float64(v)/float64(allLanguageSize)*10000) / 100,
 		})
 	}
 
