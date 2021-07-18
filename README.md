@@ -19,7 +19,7 @@ USAGE:
    main [global options] command [command options] [arguments...]
 
 VERSION:
-   v0.0.4
+   v0.0.5
 
 COMMANDS:
    version  Print octlango version
@@ -28,8 +28,10 @@ COMMANDS:
 GLOBAL OPTIONS:
    --username GITHUB_USERNAME, -u GITHUB_USERNAME  your GITHUB_USERNAME [$OCTLANGO_GH_USERNAME]
    --token GITHUB_TOKEN, -t GITHUB_TOKEN           your GITHUB_TOKEN [$OCTLANGO_GH_TOKEN, $GITHUB_TOKEN]
+   --format format, -f format                      format is json or markdown (default: "json")
    --sort-by-size, -s                              if true, the order is by size. (default: true)
    --reverse-order, -r                             if true, reverse the result. (default: false)
+   --each-extension                                if true, add extension each row for markdown format (default: false)
    --help, -h                                      show help (default: false)
    --version, -v                                   print the version (default: false)
 ```
