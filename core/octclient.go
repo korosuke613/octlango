@@ -28,7 +28,7 @@ type Octclient struct {
 	latestUpdatedAt time.Time
 }
 
-func (o *Octclient) CallQueryRepositoriesContributedTo(ctx context.Context) (*UserRepositoriesContributedTo, error) {
+func (o *Octclient) callQueryRepositoriesContributedTo(ctx context.Context) (*UserRepositoriesContributedTo, error) {
 	variables := map[string]interface{}{
 		"login": githubv4.String(o.user),
 	}
@@ -51,7 +51,7 @@ func (o *Octclient) updateUpdatedTime(t time.Time) {
 }
 
 func (o *Octclient) GetRepositoriesContributedTo(ctx context.Context, isSortBySize bool, reverse bool) (*Results, error) {
-	result, err := o.CallQueryRepositoriesContributedTo(ctx)
+	result, err := o.callQueryRepositoriesContributedTo(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (o *Octclient) GetRepositoriesContributedTo(ctx context.Context, isSortBySi
 	}, nil
 }
 
-func (* Octclient) ConvertJson(r *Results) (string, error){
+func (*Octclient) ConvertJson(r *Results) (string, error) {
 	jsonWithByte, err := json.MarshalIndent(r, "", "  ")
 	return string(jsonWithByte), err
 }
@@ -103,7 +103,7 @@ type MarkdownOptions struct {
 	IsEachExtension bool
 }
 
-func (* Octclient) ConvertTableForMarkdown(r *Results, o *MarkdownOptions) string{
+func (*Octclient) ConvertTableForMarkdown(r *Results, o *MarkdownOptions) string {
 	table := `|language|percentage(%)|size(byte)|
 |---|---|---|
 `
@@ -112,7 +112,7 @@ func (* Octclient) ConvertTableForMarkdown(r *Results, o *MarkdownOptions) strin
 
 		if o.IsEachExtension {
 			data = fmt.Sprintf("|%s|%.2f %%|%d byte|\n", v.Name, v.Percentage, v.Size)
-		}else {
+		} else {
 			data = fmt.Sprintf("|%s|%.2f|%d|\n", v.Name, v.Percentage, v.Size)
 		}
 
