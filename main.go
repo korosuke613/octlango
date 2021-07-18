@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/korosuke613/octlango/core"
 	"github.com/urfave/cli/v2"
@@ -22,9 +21,19 @@ func action(c *cli.Context) error {
 		return err
 	}
 
-	result, err := json.MarshalIndent(query, "", "  ")
-	if err != nil {
-		return err
+	var result string
+	format := c.String("format")
+
+	switch format {
+	case "markdown":
+		result = octclient.ConvertTableForMarkdown(query, &core.MarkdownOptions{IsEachExtension: c.Bool("each-extension")})
+	case "json":
+		result, err = octclient.ConvertJson(query)
+		if err != nil {
+			return err
+		}
+	default:
+		return fmt.Errorf("format option is invalid: %s", format)
 	}
 
 	fmt.Printf("%s\n", result)
@@ -75,6 +84,12 @@ func main() {
 				EnvVars:  []string{"OCTLANGO_GH_TOKEN", "GITHUB_TOKEN"},
 				Required: isGlobalRequire,
 			},
+			&cli.StringFlag{
+				Name:    "format",
+				Aliases: []string{"f"},
+				Usage:   "`format` is json or markdown",
+				Value:   "json",
+			},
 			&cli.BoolFlag{
 				Name:    "sort-by-size",
 				Aliases: []string{"s"},
@@ -87,11 +102,16 @@ func main() {
 				Usage:   "if true, reverse the result.",
 				Value:   false,
 			},
+			&cli.BoolFlag{
+				Name:  "each-extension",
+				Usage: "if true, add extension each row for markdown format",
+				Value: false,
+			},
 		},
 		Commands: []*cli.Command{
 			{
-				Name:    "version",
-				Usage:   "Print octlango version",
+				Name:  "version",
+				Usage: "Print octlango version",
 				Action: func(c *cli.Context) error {
 					fmt.Printf("octlango version %s\n", version)
 					return nil

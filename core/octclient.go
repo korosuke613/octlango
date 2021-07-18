@@ -2,6 +2,8 @@ package core
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"github.com/shurcooL/githubv4"
 	"math"
 	"sort"
@@ -90,4 +92,32 @@ func (o *Octclient) GetRepositoriesContributedTo(ctx context.Context, isSortBySi
 		},
 		LanguageSizes: languages,
 	}, nil
+}
+
+func (* Octclient) ConvertJson(r *Results) (string, error){
+	jsonWithByte, err := json.MarshalIndent(r, "", "  ")
+	return string(jsonWithByte), err
+}
+
+type MarkdownOptions struct {
+	IsEachExtension bool
+}
+
+func (* Octclient) ConvertTableForMarkdown(r *Results, o *MarkdownOptions) string{
+	table := `|language|percentage(%)|size(byte)|
+|---|---|---|
+`
+	for _, v := range r.LanguageSizes {
+		var data string
+
+		if o.IsEachExtension {
+			data = fmt.Sprintf("|%s|%.2f %%|%d byte|\n", v.Name, v.Percentage, v.Size)
+		}else {
+			data = fmt.Sprintf("|%s|%.2f|%d|\n", v.Name, v.Percentage, v.Size)
+		}
+
+		table += data
+	}
+
+	return table
 }
